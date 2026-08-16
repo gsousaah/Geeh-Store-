@@ -1,31 +1,184 @@
-const products=[
-  {id:1,name:"Marreta Exemplo I",rarity:"RARIDADE • LENDÁRIA",price:10},
-  {id:2,name:"Marreta Exemplo II",rarity:"RARIDADE • ÉPICA",price:12},
-  {id:3,name:"Marreta Exemplo III",rarity:"RARIDADE • RARA",price:8},
-  {id:4,name:"Marreta Exemplo IV",rarity:"RARIDADE • EVENTO",price:15}
+/* =====================================
+   GEEH STORE
+===================================== */
+
+
+/* =====================================
+   WHATSAPP DA LOJA
+===================================== */
+
+const WHATSAPP_NUMBER = "5561982230634";
+
+
+/* =====================================
+   PRODUTOS
+===================================== */
+
+const products = [
+
+  {
+    name: "Party Balloons Set",
+    price: 12.00
+  },
+
+  {
+    name: "Lovesick Bow Set",
+    price: 9.00
+  },
+
+  {
+    name: "Gothic Bouquet Set",
+    price: 7.50
+  },
+
+  {
+    name: "Pumpkin Slice Set",
+    price: 5.00
+  },
+
+  {
+    name: "Icecream Mix Set",
+    price: 4.50
+  },
+
+  {
+    name: "Devilish Candle Set",
+    price: 5.00
+  },
+
+  {
+    name: "Spooky Brew Set",
+    price: 5.50
+  },
+
+  {
+    name: "Cherry Blossom Tree Set",
+    price: 4.50
+  },
+
+  {
+    name: "Pegasus Blade Set",
+    price: 4.00
+  },
+
+  {
+    name: "Bleak Ink Set",
+    price: 4.00
+  },
+
+  {
+    name: "Sakura Parasol Set",
+    price: 3.00
+  },
+
+  {
+    name: "Batwing Basher Set",
+    price: 3.50
+  },
+
+  {
+    name: "Classic Set",
+    price: 3.00
+  },
+
+  {
+    name: "Pearl Piercer Set",
+    price: 5.00
+  },
+
+  {
+    name: "Phosphor Jellyfish Set",
+    price: 5.00
+  },
+
+  {
+    name: "Chilly Sweet's Vend Set",
+    price: 6.00
+  },
+
+  {
+    name: "Kraken's Ambush Set",
+    price: 6.00
+  },
+
+  {
+    name: "Psycho’s Chainsaw Set",
+    price: 4.00
+  },
+
+  {
+    name: "Soulless Theater Set",
+    price: 3.50
+  },
+
+  {
+    name: "Dark Bone Crusher Set",
+    price: 3.50
+  },
+
+  {
+    name: "Devilborn Set",
+    price: 3.50
+  },
+
+  {
+    name: "Strawberry Garden Set",
+    price: 4.50
+  },
+
+  {
+    name: "Choco Dip Set",
+    price: 3.00
+  },
+
+  {
+    name: "Marine Anchor Set",
+    price: 3.00
+  }
+
 ];
-let cart=JSON.parse(localStorage.getItem("geehCart")||"[]");
-const grid=document.querySelector("#productGrid"),search=document.querySelector("#search");
-function money(n){return n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
-function renderProducts(){
-  const q=search.value.toLowerCase();
-  const list=products.filter(p=>(p.name+" "+p.rarity).toLowerCase().includes(q));
-  grid.innerHTML=list.map(p=>`<article class="product"><div class="product-img">IMAGEM DA MARRETA</div><div class="product-info"><div class="rarity">${p.rarity}</div><h3>${p.name}</h3><div class="price">${money(p.price)}</div><button class="add" onclick="addToCart(${p.id})">Adicionar ao carrinho</button></div></article>`).join("");
-  document.querySelector("#empty").classList.toggle("hidden",list.length!==0);
+
+
+/* =====================================
+   CARRINHO
+===================================== */
+
+let cart = [];
+
+
+/* =====================================
+   FORMATAÇÃO DE PREÇO
+===================================== */
+
+function formatPrice(price) {
+
+  return price.toLocaleString(
+    "pt-BR",
+    {
+      style: "currency",
+      currency: "BRL"
+    }
+  );
+
 }
-function addToCart(id){const p=products.find(x=>x.id===id);cart.push(p);save();openCart()}
-function removeItem(i){cart.splice(i,1);save()}
-function save(){localStorage.setItem("geehCart",JSON.stringify(cart));renderCart()}
-function renderCart(){
-  document.querySelector("#cartCount").textContent=cart.length;
-  document.querySelector("#cartItems").innerHTML=cart.length?cart.map((p,i)=>`<div class="cart-item"><div><strong>${p.name}</strong><br><small>${p.rarity}</small></div><div><strong>${money(p.price)}</strong><br><button class="remove" onclick="removeItem(${i})">Remover</button></div></div>`).join(""):`<p style="color:#a88c76">Seu carrinho está vazio.</p>`;
-  document.querySelector("#cartTotal").textContent=money(cart.reduce((s,p)=>s+p.price,0));
-}
-function openCart(){document.querySelector("#cart").classList.add("open");document.querySelector("#overlay").classList.remove("hidden")}
-function closeCart(){document.querySelector("#cart").classList.remove("open");document.querySelector("#overlay").classList.add("hidden")}
-document.querySelector("#cartBtn").onclick=openCart;
-document.querySelector("#closeCart").onclick=closeCart;
-document.querySelector("#overlay").onclick=closeCart;
-document.querySelector("#checkoutBtn").onclick=()=>alert("Checkout será conectado na próxima etapa.");
-search.addEventListener("input",renderProducts);
-renderProducts();renderCart();
+
+
+/* =====================================
+   MOSTRAR PRODUTOS
+===================================== */
+
+function renderProducts() {
+
+  const container =
+    document.getElementById("products");
+
+  container.innerHTML = "";
+
+  products.forEach((product, index) => {
+
+    const card =
+      document.createElement("article");
+
+    card.className = "product";
+
+    card.innerHTML = `

@@ -1,130 +1,213 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Geeh Store</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
 
 <body>
 
-  <header>
 
-    <div class="brand">
-      <div class="bear">
-        <span></span>
-      </div>
+<header>
 
-      <span>Geeh Store</span>
+  <div class="brand">
+
+    <div class="bear">
+
+      <span></span>
+
     </div>
 
-    <p class="description">
-      Sua loja para colecionadores de Flee the Facility 🤎
-    </p>
+    <span>Geeh Store</span>
 
-    <div class="customers">
-      ★ +50 clientes satisfeitos
-    </div>
-
-  </header>
+  </div>
 
 
-  <main>
+  <p class="description">
 
-    <h1>Sets disponíveis</h1>
+    Sua loja para colecionadores de
+    Flee the Facility 🤎
 
-    <div id="products" class="products"></div>
-
-
-    <!-- CARRINHO -->
-
-    <section class="cart">
-
-      <div class="cart-header">
-
-        <h2>🛒 Seu carrinho</h2>
-
-        <span id="cartCount">
-          0 itens
-        </span>
-
-      </div>
+  </p>
 
 
-      <div id="cartItems">
+  <div class="customers">
 
-        <p class="empty">
-          Seu carrinho está vazio.
-        </p>
+    ★ +50 clientes satisfeitos
 
-      </div>
+  </div>
 
-
-      <div class="total">
-
-        Total:
-        <strong id="cartTotal">
-          R$ 0,00
-        </strong>
-
-      </div>
-
-
-      <button
-        class="whatsapp-button"
-        onclick="checkoutWhatsApp()"
-      >
-        Comprar pelo WhatsApp
-      </button>
-
-    </section>
+</header>
 
 
 
-    <!-- OUTROS SETS -->
+<main>
 
-    <section class="other-sets">
+
+  <h1>
+
+    Sets disponíveis
+
+  </h1>
+
+
+  <!-- OS SETS APARECEM AQUI -->
+
+  <div
+    id="products"
+    class="products"
+  ></div>
+
+
+
+  <!-- CARRINHO -->
+
+  <section class="cart">
+
+
+    <div class="cart-header">
 
       <h2>
-        Não encontrou o set que procura?
+
+        🛒 Seu carrinho
+
       </h2>
 
-      <p>
-        Temos uma grande variedade de sets disponíveis!
-        Entre em contato conosco pelo WhatsApp e consulte
-        a disponibilidade de outros sets.
+
+      <span id="cartCount">
+
+        0 itens
+
+      </span>
+
+    </div>
+
+
+
+    <div id="cartItems">
+
+      <p class="empty">
+
+        Seu carrinho está vazio.
+
       </p>
 
-      <button
-        class="whatsapp-button"
-        onclick="contactWhatsApp()"
-      >
-        Consultar outros sets
-      </button>
-
-    </section>
-
-  </main>
+    </div>
 
 
-  <footer>
 
-    Geeh Store
-    <br>
+    <div class="total">
 
-    Colecionadores de Flee the Facility 🤎
+      Total:
 
-  </footer>
+      <strong id="cartTotal">
+
+        R$ 0,00
+
+      </strong>
+
+    </div>
 
 
-  <script src="script.js"></script>
+
+    <button
+      id="whatsappButton"
+      class="whatsapp-button"
+    >
+
+      Comprar pelo WhatsApp
+
+    </button>
+
+
+  </section>
+
+
+
+  <!-- OUTROS SETS -->
+
+  <section class="other-sets">
+
+
+    <h2>
+
+      Não encontrou o set que procura?
+
+    </h2>
+
+
+    <p>
+
+      Temos uma grande variedade de sets
+      disponíveis! Entre em contato conosco
+      pelo WhatsApp e consulte a disponibilidade.
+
+    </p>
+
+
+    <button
+      id="otherSetsButton"
+      class="whatsapp-button"
+    >
+
+      Consultar outros sets
+
+    </button>
+
+
+  </section>
+
+
+</main>
+
+
+
+<footer>
+
+  Geeh Store
+
+  <br>
+
+  Colecionadores de Flee the Facility 🤎
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
 
 </body>
+
 </html>

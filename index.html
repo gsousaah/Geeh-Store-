@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Geeh Store</title>
+  <meta name="description" content="Geeh Store — catálogo de itens virtuais.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#">GEEH <span>STORE</span></a>
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#produtos">Marretas</a>
+      <button id="cartBtn" class="cart-btn">🛒 Carrinho <b id="cartCount">0</b></button>
+    </nav>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">GEEH STORE • FLEE THE FACILITY</p>
+        <h1>Seu cantinho para encontrar suas <em>marretas favoritas.</em></h1>
+        <p class="hero-text">Uma loja simples, elegante e feita para você. Explore o catálogo e monte seu carrinho.</p>
+        <a class="primary" href="#produtos">Ver marretas</a>
+      </div>
+      <div class="hero-card">
+        <span>GEEH</span>
+        <strong>STORE</strong>
+        <small>VIRTUAL ITEMS</small>
+      </div>
+    </section>
+
+    <section id="produtos" class="products-section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">CATÁLOGO</p>
+          <h2>Marretas em destaque</h2>
+        </div>
+        <input id="search" type="search" placeholder="🔎 Procurar marreta..." aria-label="Procurar marreta">
+      </div>
+
+      <div id="productGrid" class="product-grid"></div>
+      <p id="empty" class="empty hidden">Nenhum produto encontrado.</p>
+    </section>
+  </main>
+
+  <div id="overlay" class="overlay hidden"></div>
+  <aside id="cart" class="cart-panel" aria-label="Carrinho">
+    <div class="cart-head">
+      <h2>Seu carrinho</h2>
+      <button id="closeCart" class="icon-btn">×</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-bottom">
+      <div class="total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div>
+      <button id="checkoutBtn" class="primary full">Continuar</button>
+      <small>O checkout será configurado na próxima etapa.</small>
+    </div>
+  </aside>
+
+  <footer>
+    <strong>GEEH STORE</strong>
+    <span>Feita com carinho 🤎</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

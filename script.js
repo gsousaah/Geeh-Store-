@@ -182,3 +182,222 @@ function renderProducts() {
     card.className = "product";
 
     card.innerHTML = `
+
+      <h3>
+        ${product.name}
+      </h3>
+
+      <div class="price">
+        ${formatPrice(product.price)}
+      </div>
+
+      <button
+        onclick="addToCart(${index})"
+      >
+        Adicionar ao carrinho
+      </button>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =====================================
+   ADICIONAR AO CARRINHO
+===================================== */
+
+function addToCart(index) {
+
+  cart.push(products[index]);
+
+  renderCart();
+
+}
+
+
+/* =====================================
+   REMOVER DO CARRINHO
+===================================== */
+
+function removeFromCart(index) {
+
+  cart.splice(index, 1);
+
+  renderCart();
+
+}
+
+
+/* =====================================
+   MOSTRAR CARRINHO
+===================================== */
+
+function renderCart() {
+
+  const container =
+    document.getElementById("cartItems");
+
+  const count =
+    document.getElementById("cartCount");
+
+  const total =
+    document.getElementById("cartTotal");
+
+
+  count.textContent =
+    `${cart.length} ${
+      cart.length === 1
+        ? "item"
+        : "itens"
+    }`;
+
+
+  if (cart.length === 0) {
+
+    container.innerHTML = `
+      <p class="empty">
+        Seu carrinho está vazio.
+      </p>
+    `;
+
+  }
+
+  else {
+
+    container.innerHTML = "";
+
+    cart.forEach((product, index) => {
+
+      const item =
+        document.createElement("div");
+
+      item.className = "cart-item";
+
+      item.innerHTML = `
+
+        <span>
+          ${product.name}
+          —
+          ${formatPrice(product.price)}
+        </span>
+
+        <button
+          class="remove"
+          onclick="removeFromCart(${index})"
+        >
+          remover
+        </button>
+
+      `;
+
+      container.appendChild(item);
+
+    });
+
+  }
+
+
+  const totalValue =
+    cart.reduce(
+      (sum, product) =>
+        sum + product.price,
+      0
+    );
+
+
+  total.textContent =
+    formatPrice(totalValue);
+
+}
+
+
+/* =====================================
+   COMPRAR PELO WHATSAPP
+===================================== */
+
+function checkoutWhatsApp() {
+
+  if (cart.length === 0) {
+
+    alert(
+      "Adicione pelo menos um set ao carrinho."
+    );
+
+    return;
+
+  }
+
+
+  let message =
+    "Olá! 🤎 Quero comprar estes sets na Geeh Store:\n\n";
+
+
+  cart.forEach((product, index) => {
+
+    message +=
+      `${index + 1}. ` +
+      `${product.name} — ` +
+      `${formatPrice(product.price)}\n`;
+
+  });
+
+
+  const total =
+    cart.reduce(
+      (sum, product) =>
+        sum + product.price,
+      0
+    );
+
+
+  message +=
+    `\nTotal: ${formatPrice(total)}`;
+
+
+  const url =
+    `https://wa.me/${WHATSAPP_NUMBER}` +
+    `?text=${encodeURIComponent(message)}`;
+
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+
+/* =====================================
+   NÃO ENCONTROU O SET
+===================================== */
+
+function contactWhatsApp() {
+
+  const message =
+    "Olá! 🤎 Não encontrei o set que procuro na lista da Geeh Store. Gostaria de consultar a disponibilidade de outros sets.";
+
+
+  const url =
+    `https://wa.me/${WHATSAPP_NUMBER}` +
+    `?text=${encodeURIComponent(message)}`;
+
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+
+/* =====================================
+   INICIAR A LOJA
+===================================== */
+
+renderProducts();
+
+renderCart();

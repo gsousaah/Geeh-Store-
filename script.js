@@ -1,18 +1,19 @@
-/* =====================================
+/* =========================================
    GEEH STORE
-===================================== */
+========================================= */
 
 
-/* =====================================
-   WHATSAPP DA LOJA
-===================================== */
+/* =========================================
+   WHATSAPP
+========================================= */
 
 const WHATSAPP_NUMBER = "5561982230634";
 
 
-/* =====================================
-   PRODUTOS
-===================================== */
+
+/* =========================================
+   SETS DA LOJA
+========================================= */
 
 const products = [
 
@@ -139,20 +140,22 @@ const products = [
 ];
 
 
-/* =====================================
+
+/* =========================================
    CARRINHO
-===================================== */
+========================================= */
 
 let cart = [];
 
 
-/* =====================================
-   FORMATAÇÃO DE PREÇO
-===================================== */
 
-function formatPrice(price) {
+/* =========================================
+   PREÇO
+========================================= */
 
-  return price.toLocaleString(
+function formatPrice(value) {
+
+  return value.toLocaleString(
     "pt-BR",
     {
       style: "currency",
@@ -163,52 +166,79 @@ function formatPrice(price) {
 }
 
 
-/* =====================================
-   MOSTRAR PRODUTOS
-===================================== */
+
+/* =========================================
+   MOSTRAR OS SETS
+========================================= */
 
 function renderProducts() {
 
-  const container =
+  const productsContainer =
     document.getElementById("products");
 
-  container.innerHTML = "";
 
-  products.forEach((product, index) => {
+  if (!productsContainer) {
 
-    const card =
-      document.createElement("article");
+    console.error(
+      "Elemento #products não encontrado."
+    );
 
-    card.className = "product";
+    return;
 
-    card.innerHTML = `
+  }
 
-      <h3>
-        ${product.name}
-      </h3>
 
-      <div class="price">
-        ${formatPrice(product.price)}
-      </div>
+  productsContainer.innerHTML = "";
 
-      <button
-        onclick="addToCart(${index})"
-      >
-        Adicionar ao carrinho
-      </button>
 
-    `;
+  products.forEach(
+    function(product, index) {
 
-    container.appendChild(card);
 
-  });
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "product";
+
+
+      card.innerHTML = `
+
+        <h3>
+          ${product.name}
+        </h3>
+
+        <div class="price">
+
+          ${formatPrice(product.price)}
+
+        </div>
+
+        <button
+          type="button"
+          onclick="addToCart(${index})"
+        >
+
+          Adicionar ao carrinho
+
+        </button>
+
+      `;
+
+
+      productsContainer.appendChild(card);
+
+    }
+  );
 
 }
 
 
-/* =====================================
-   ADICIONAR AO CARRINHO
-===================================== */
+
+/* =========================================
+   ADICIONAR
+========================================= */
 
 function addToCart(index) {
 
@@ -219,9 +249,10 @@ function addToCart(index) {
 }
 
 
-/* =====================================
-   REMOVER DO CARRINHO
-===================================== */
+
+/* =========================================
+   REMOVER
+========================================= */
 
 function removeFromCart(index) {
 
@@ -232,99 +263,154 @@ function removeFromCart(index) {
 }
 
 
-/* =====================================
+
+/* =========================================
    MOSTRAR CARRINHO
-===================================== */
+========================================= */
 
 function renderCart() {
 
-  const container =
+  const cartContainer =
     document.getElementById("cartItems");
 
-  const count =
+  const cartCount =
     document.getElementById("cartCount");
 
-  const total =
+  const cartTotal =
     document.getElementById("cartTotal");
 
 
-  count.textContent =
-    `${cart.length} ${
+  if (!cartContainer) {
+
+    return;
+
+  }
+
+
+  cartCount.textContent =
+    cart.length +
+    (
       cart.length === 1
-        ? "item"
-        : "itens"
-    }`;
+        ? " item"
+        : " itens"
+    );
 
 
   if (cart.length === 0) {
 
-    container.innerHTML = `
+    cartContainer.innerHTML = `
+
       <p class="empty">
+
         Seu carrinho está vazio.
+
       </p>
+
     `;
 
   }
 
   else {
 
-    container.innerHTML = "";
 
-    cart.forEach((product, index) => {
+    cartContainer.innerHTML = "";
 
-      const item =
-        document.createElement("div");
 
-      item.className = "cart-item";
+    cart.forEach(
+      function(product, index) {
 
-      item.innerHTML = `
 
-        <span>
-          ${product.name}
-          —
-          ${formatPrice(product.price)}
-        </span>
+        const item =
+          document.createElement("div");
 
-        <button
-          class="remove"
-          onclick="removeFromCart(${index})"
-        >
-          remover
-        </button>
 
-      `;
+        item.className =
+          "cart-item";
 
-      container.appendChild(item);
 
-    });
+        item.innerHTML = `
+
+          <span>
+
+            ${product.name}
+
+            —
+
+            ${formatPrice(product.price)}
+
+          </span>
+
+
+          <button
+            type="button"
+            class="remove"
+            onclick="removeFromCart(${index})"
+          >
+
+            remover
+
+          </button>
+
+        `;
+
+
+        cartContainer.appendChild(item);
+
+      }
+    );
 
   }
 
 
-  const totalValue =
+  const total =
     cart.reduce(
-      (sum, product) =>
-        sum + product.price,
+      function(sum, product) {
+
+        return sum + product.price;
+
+      },
       0
     );
 
 
-  total.textContent =
-    formatPrice(totalValue);
+  cartTotal.textContent =
+    formatPrice(total);
 
 }
 
 
-/* =====================================
-   COMPRAR PELO WHATSAPP
-===================================== */
+
+/* =========================================
+   ABRIR WHATSAPP
+========================================= */
+
+function openWhatsApp(message) {
+
+  const whatsappURL =
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(message);
+
+
+  window.location.href =
+    whatsappURL;
+
+}
+
+
+
+/* =========================================
+   COMPRAR
+========================================= */
 
 function checkoutWhatsApp() {
+
 
   if (cart.length === 0) {
 
     alert(
-      "Adicione pelo menos um set ao carrinho."
+      "Seu carrinho está vazio! 🤎"
     );
 
     return;
@@ -333,71 +419,112 @@ function checkoutWhatsApp() {
 
 
   let message =
-    "Olá! 🤎 Quero comprar estes sets na Geeh Store:\n\n";
+    "Olá! 🤎 Quero fazer uma compra na Geeh Store!\n\n";
 
 
-  cart.forEach((product, index) => {
+  message +=
+    "SETS:\n";
 
-    message +=
-      `${index + 1}. ` +
-      `${product.name} — ` +
-      `${formatPrice(product.price)}\n`;
 
-  });
+  cart.forEach(
+    function(product, index) {
+
+      message +=
+        `${index + 1}. ` +
+        `${product.name} — ` +
+        `${formatPrice(product.price)}\n`;
+
+    }
+  );
 
 
   const total =
     cart.reduce(
-      (sum, product) =>
-        sum + product.price,
+      function(sum, product) {
+
+        return sum + product.price;
+
+      },
       0
     );
 
 
   message +=
-    `\nTotal: ${formatPrice(total)}`;
+    "\nTotal: " +
+    formatPrice(total);
 
 
-  const url =
-    `https://wa.me/${WHATSAPP_NUMBER}` +
-    `?text=${encodeURIComponent(message)}`;
+  message +=
+    "\n\nAguardo atendimento! 🤎";
 
 
-  window.open(
-    url,
-    "_blank"
-  );
+  openWhatsApp(message);
 
 }
 
 
-/* =====================================
+
+/* =========================================
    NÃO ENCONTROU O SET
-===================================== */
+========================================= */
 
 function contactWhatsApp() {
 
+
   const message =
-    "Olá! 🤎 Não encontrei o set que procuro na lista da Geeh Store. Gostaria de consultar a disponibilidade de outros sets.";
+    "Olá! 🤎 Não encontrei o set que procuro na lista da Geeh Store. Gostaria de consultar outros sets disponíveis.";
 
 
-  const url =
-    `https://wa.me/${WHATSAPP_NUMBER}` +
-    `?text=${encodeURIComponent(message)}`;
-
-
-  window.open(
-    url,
-    "_blank"
-  );
+  openWhatsApp(message);
 
 }
 
 
-/* =====================================
-   INICIAR A LOJA
-===================================== */
 
-renderProducts();
+/* =========================================
+   BOTÃO DO WHATSAPP
+========================================= */
 
-renderCart();
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+
+    renderProducts();
+
+    renderCart();
+
+
+    const whatsappButton =
+      document.getElementById(
+        "whatsappButton"
+      );
+
+
+    const otherSetsButton =
+      document.getElementById(
+        "otherSetsButton"
+      );
+
+
+    if (whatsappButton) {
+
+      whatsappButton.addEventListener(
+        "click",
+        checkoutWhatsApp
+      );
+
+    }
+
+
+    if (otherSetsButton) {
+
+      otherSetsButton.addEventListener(
+        "click",
+        contactWhatsApp
+      );
+
+    }
+
+  }
+);
